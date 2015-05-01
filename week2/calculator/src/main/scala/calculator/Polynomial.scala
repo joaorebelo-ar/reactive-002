@@ -19,9 +19,16 @@ object Polynomial {
       val na = a()
       val nb = b()
       val nc = c()
-      val nd = math.sqrt(delta())
+      val d = delta()
+      if (d < 0.0) Set()
+      else if (d > 0.0) {
+        val nd = math.sqrt(d)
 
-      Set((-nb + nd) / (2 * na), (-nb - nd) / (2 * na))
+        Set((-nb + nd) / (2 * na), (-nb - nd) / (2 * na))
+      } else {
+        Set((-nb) / (2 * na))
+
+      }
     }
   }
 }

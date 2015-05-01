@@ -12,9 +12,11 @@ import TweetLength.MaxTweetLength
 @RunWith(classOf[JUnitRunner])
 class CalculatorSuite extends FunSuite with ShouldMatchers {
 
-  /******************
-   ** TWEET LENGTH **
-   ******************/
+  /**
+   * ****************
+   * * TWEET LENGTH **
+   * ****************
+   */
 
   def tweetLength(text: String): Int =
     text.codePointCount(0, text.length)
@@ -33,7 +35,6 @@ class CalculatorSuite extends FunSuite with ShouldMatchers {
     assert(result() == MaxTweetLength - tweetLength("foo blabla \uD83D\uDCA9 bar"))
   }
 
-
   test("colorForRemainingCharsCount with a constant signal") {
     val resultGreen1 = TweetLength.colorForRemainingCharsCount(Var(52))
     assert(resultGreen1() == "green")
@@ -49,6 +50,26 @@ class CalculatorSuite extends FunSuite with ShouldMatchers {
     assert(resultRed1() == "red")
     val resultRed2 = TweetLength.colorForRemainingCharsCount(Var(-5))
     assert(resultRed2() == "red")
+  }
+
+  test("calculator eval") {
+
+    val result1 = 5.0
+    assert(Calculator.eval(Literal(result1), Map("a" -> Signal(Literal(result1)))) === result1)
+
+    val e = Plus(Literal(result1), Ref("b"))
+    assert(
+        Calculator.eval(
+            e,
+            Map("a" -> Signal(Plus(Literal(result1), Ref("b"))),
+                "b" -> Signal(Literal(result1)))) === 10.0)
+                
+                val f = Times(Literal(result1), Ref("b"))
+    assert(
+        Calculator.eval(
+            f,
+            Map("a" -> Signal(Times(Literal(result1), Ref("b"))),
+                "b" -> Signal(Literal(result1)))) === 25.0)
   }
 
 }

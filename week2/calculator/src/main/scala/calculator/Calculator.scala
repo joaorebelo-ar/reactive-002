@@ -23,7 +23,7 @@ object Calculator {
       case Literal(v) => v
       case Ref(name) => getReferenceExpr(name, references) match {
         case Literal(Double.NaN) => Double.NaN
-        case exp                 => eval(exp, references)
+        case exp                 => eval(exp, references - name)
       }
       case Plus(a, b)   => eval(a, references) + eval(b, references)
       case Minus(a, b)  => eval(a, references) - eval(b, references)

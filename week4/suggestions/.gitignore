@@ -1,1 +1,10 @@
 /bin/
+/.metadata/
+/.classpath
+.project
+/.settings/
+/web*
+*.sjsir
+.classpath
+.settings/*
+
